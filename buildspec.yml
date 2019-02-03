@@ -24,3 +24,4 @@ phases:
       - echo "[{\"name\":\"${IMAGE_NAME}\",\"imageUri\":\"${REPOSITORY_URI}:${IMAGE_TAG}\"}]" > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
+    #aaaa
