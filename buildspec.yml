@@ -24,3 +24,17 @@ phases:
       - echo "[{\"name\":\"${IMAGE_NAME}\",\"imageUri\":\"${REPOSITORY_URI}:${IMAGE_TAG}\"}]" > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
+# phases:
+#   pre_build:
+#     commands:
+#       - echo Logging in to Amazon ECR...
+#   build:
+#     commands:
+#       - echo Build started on `date`
+#       - echo Building the Docker image...          
+#   post_build:
+#     commands:
+#       - echo Build completed on `date`
+#       - echo Pushing the Docker images...
+# artifacts:
+#     files: imagedefinitions.json
