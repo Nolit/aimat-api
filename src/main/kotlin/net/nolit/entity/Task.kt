@@ -32,5 +32,6 @@ class Task  {
 
 enum class Type(val type: String) {
     AMOUNT("amount"),
-    TIME("time")
+    TIME("time"),
+    ACHIEVE("achieve")
 }

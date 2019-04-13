@@ -1,6 +1,7 @@
 package net.nolit.dredear.controller
 
 import net.nolit.dredear.entity.Task
+import net.nolit.dredear.entity.Type
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.TaskService
 import net.nolit.dredear.controller.form.Task as TaskForm
@@ -24,7 +25,7 @@ class TaskController (
 
     @PostMapping
     fun create(@ModelAttribute user: User, @ModelAttribute taskForm: TaskForm): Task {
-        return service.create(taskForm.title, taskForm.amount, LocalDate.parse(taskForm.dueDate), user)
+        return service.create(taskForm.title, taskForm.amount, LocalDate.parse(taskForm.dueDate), user, Type.valueOf(taskForm.type))
     }
 
     @DeleteMapping("/{id}")

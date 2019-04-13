@@ -26,12 +26,12 @@ class TaskService (
     }
 
     @Transactional
-    fun create(title: String, amount: Int, dueDate: LocalDate, user: User): Task {
+    fun create(title: String, amount: Int, dueDate: LocalDate, user: User, type: Type): Task {
         val task = Task()
         task.title = title
         task.amount = amount
         task.dueDate = dueDate
-        task.type = Type.AMOUNT
+        task.type = type
         task.userId = user.id
         return repository.save(task)
     }
