@@ -52,4 +52,11 @@ class TaskService (
         task.progress += count
         repository.save(task)
     }
+
+    @Transactional
+    fun achieve(id: Int) {
+        val task = repository.findById(id).get()
+        task.isAchieved = true
+        repository.save(task)
+    }
 }

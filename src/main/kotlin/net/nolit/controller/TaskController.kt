@@ -38,4 +38,9 @@ class TaskController (
     fun progress(@PathVariable id: Int, @PathVariable progressCount: Int) {
         service.progress(id, progressCount)
     }
+
+    @PutMapping("/{id}/achieved")
+    fun achieve(@PathVariable id: Int) {
+        service.achieve(id)
+    }
 }

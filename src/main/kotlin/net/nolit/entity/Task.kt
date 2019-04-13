@@ -26,6 +26,9 @@ class Task  {
 
     var progress: Int = 0
 
+    @Column(name = "is_achieved")
+    var isAchieved: Boolean = false
+
     @Enumerated(EnumType.STRING)
     var type: Type? = null
 }
