@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class JpaUserDetailsServiceImpl(private val userRepository: UserRepository): UserDetailsService {
     @Throws(UsernameNotFoundException::class)
-    override fun loadUserByUsername(email: String): UserDetails {
+    override fun loadUserByUsername(email: String): UserDetails? {
 
         return userRepository.findByEmail(email)
     }
