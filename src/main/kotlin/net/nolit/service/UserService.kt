@@ -12,10 +12,11 @@ class UserService(
         private val passwordEncoder: PasswordEncoder) {
 
     @Transactional
-    fun create(email: String, password: String): User {
+    fun create(email: String, password: String, name: String): User {
         val user = User()
         user.email = email
         user.pass = passwordEncoder.encode(password)
+        user.userName = name
         return repository.save(user)
     }
 

@@ -17,6 +17,6 @@ class UserController (private val service: UserService){
 
     @PostMapping
     fun create(request: HttpServletRequest): User {
-        return service.create(request.getParameter("email"), request.getParameter("password"))
+        return service.create(request.getParameter("email"), request.getParameter("password"), request.getParameter("userName"))
     }
 }
