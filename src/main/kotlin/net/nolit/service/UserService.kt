@@ -1,6 +1,9 @@
 package net.nolit.dredear.service
 
+import net.nolit.dredear.entity.Follower
+import net.nolit.dredear.entity.FollowerPairKey
 import net.nolit.dredear.entity.User
+import net.nolit.dredear.repository.FollowerRepository
 import net.nolit.dredear.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -10,6 +13,7 @@ import kotlin.streams.toList
 @Service
 class UserService(
         private val repository: UserRepository,
+        private val followerRepository: FollowerRepository,
         private val passwordEncoder: PasswordEncoder) {
 
     @Transactional
@@ -42,5 +46,15 @@ class UserService(
         val cannotCandidateIdList = followedUserList.stream().map { user -> user.id }.toArray().toMutableList()
         cannotCandidateIdList.add(followingUserId)
         return repository.getWithoutIdList(cannotCandidateIdList.toList() as List<Int>)
+    }
+
+    @Transactional
+    fun follow(followingUserId: Int, followedUserId: Int): Follower {
+        val follower = Follower()
+        val followerPairKey = FollowerPairKey()
+        followerPairKey.followingUserId = followingUserId
+        followerPairKey.followedUserId = followedUserId
+        follower.followerPairKey = followerPairKey
+        return followerRepository.save(follower)
     }
 }

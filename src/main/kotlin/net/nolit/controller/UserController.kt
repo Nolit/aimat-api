@@ -1,5 +1,6 @@
 package net.nolit.dredear.controller
 
+import net.nolit.dredear.entity.Follower
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
 import net.nolit.dredear.controller.form.User as UserForm
@@ -33,5 +34,10 @@ class UserController (private val service: UserService){
     @GetMapping("/sign-in-user")
     fun findSignInUser(@ModelAttribute user: User?): User? {
         return user
+    }
+
+    @PutMapping("/{followingUserId}/followed-users/{followedUserId}")
+    fun follow(@PathVariable followingUserId: Int, @PathVariable followedUserId: Int): Follower {
+        return service.follow(followingUserId, followedUserId)
     }
 }
