@@ -24,4 +24,9 @@ class UserService(
     fun getAll(): List<User> {
         return repository.findAll()
     }
+
+    @Transactional
+    fun getFollowedUserList(followingUserId: Int): List<User> {
+        return repository.getFollowedUser(followingUserId)
+    }
 }
