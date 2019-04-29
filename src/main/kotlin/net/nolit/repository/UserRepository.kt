@@ -10,4 +10,7 @@ interface UserRepository : JpaRepository<User, Int> {
 
     @Query("select u from User u, Follower f where u.id =  f.followerPairKey.followedUserId and f.followerPairKey.followingUserId = :followingUserId")
     fun getFollowedUser(@Param("followingUserId") followingUserId: Int): List<User>
+
+    @Query("select u from User u where u.id not in :withoutIdList")
+    fun getWithoutIdList(@Param("withoutIdList") withoutIdList: List<Int>): List<User>
 }

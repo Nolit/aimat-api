@@ -5,6 +5,7 @@ import net.nolit.dredear.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import kotlin.streams.toList
 
 @Service
 class UserService(
@@ -26,7 +27,20 @@ class UserService(
     }
 
     @Transactional
+    fun findById(id: Int): User {
+        return repository.getOne(id)
+    }
+
+    @Transactional
     fun getFollowedUserList(followingUserId: Int): List<User> {
         return repository.getFollowedUser(followingUserId)
+    }
+
+    @Transactional
+    fun getFollowCandidatesBy(followingUserId: Int): List<User> {
+        val followedUserList =  getFollowedUserList(followingUserId)
+        val cannotCandidateIdList = followedUserList.stream().map { user -> user.id }.toArray().toMutableList()
+        cannotCandidateIdList.add(followingUserId)
+        return repository.getWithoutIdList(cannotCandidateIdList.toList() as List<Int>)
     }
 }
