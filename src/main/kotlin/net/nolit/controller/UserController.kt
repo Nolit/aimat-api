@@ -24,4 +24,8 @@ class UserController (private val service: UserService){
     fun getFriends(@PathVariable id: Int): List<User> {
         return service.getFollowedUserList(id)
     }
+    @GetMapping("/sign-in-user")
+    fun findSignInUser(@ModelAttribute user: User?): User? {
+        return user
+    }
 }
