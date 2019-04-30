@@ -31,6 +31,17 @@ class Task  {
 
     @Enumerated(EnumType.STRING)
     var type: Type? = null
+
+    val isCleared: Boolean
+        get() {
+            if (type === Type.ACHIEVE) {
+                return isAchieved
+            }
+            if (type === Type.AMOUNT) {
+                return progress >= amount
+            }
+            return false
+        }
 }
 
 enum class Type(val type: String) {

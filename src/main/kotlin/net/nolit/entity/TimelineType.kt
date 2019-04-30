@@ -7,6 +7,9 @@ import javax.persistence.*
 @Entity
 @Table(name = "timeline_types")
 class TimelineType {
+    companion object {
+        const val ACHIEVED = 2
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
