@@ -1,15 +1,20 @@
 package net.nolit.dredear.controller
 
 import net.nolit.dredear.entity.Follower
+import net.nolit.dredear.entity.Timeline
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
+import net.nolit.service.TimelineService
 import net.nolit.dredear.controller.form.User as UserForm
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/users")
-class UserController (private val service: UserService){
+class UserController (
+        private val service: UserService,
+        private val timelineService: TimelineService
+){
 
     @GetMapping
     fun getAll(): List<User> {
@@ -39,5 +44,9 @@ class UserController (private val service: UserService){
     @PutMapping("/{followingUserId}/followed-users/{followedUserId}")
     fun follow(@PathVariable followingUserId: Int, @PathVariable followedUserId: Int): Follower {
         return service.follow(followingUserId, followedUserId)
+    }
+    @GetMapping("/{followingUserId}/timelines")
+    fun getTimeline(@PathVariable followingUserId: Int): List<Any> {
+        return timelineService.getTimelineEveryUser(followingUserId)
     }
 }

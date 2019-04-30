@@ -60,4 +60,8 @@ class User: UserDetails {
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     var tasks: List<Task> = listOf()
+
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "user_id")
+    var timelines: List<Timeline> = listOf()
 }
