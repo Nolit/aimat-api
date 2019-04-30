@@ -38,6 +38,8 @@ class UserController (
 
     @GetMapping("/sign-in-user")
     fun findSignInUser(@ModelAttribute user: User?): User? {
+        user?.timelines = listOf()
+        user?.tasks = listOf()
         return user
     }
 
