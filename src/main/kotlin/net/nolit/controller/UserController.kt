@@ -47,6 +47,12 @@ class UserController (
     fun follow(@PathVariable followingUserId: Int, @PathVariable followedUserId: Int): Follower {
         return service.follow(followingUserId, followedUserId)
     }
+
+    @DeleteMapping("/{followingUserId}/followed-users/{followedUserId}")
+    fun unfollow(@PathVariable followingUserId: Int, @PathVariable followedUserId: Int) {
+        service.unfollow(followingUserId, followedUserId)
+    }
+
     @GetMapping("/{followingUserId}/timelines")
     fun getTimeline(@PathVariable followingUserId: Int): List<Any> {
         return timelineService.getTimelineEveryUser(followingUserId)

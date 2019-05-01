@@ -57,4 +57,12 @@ class UserService(
         follower.followerPairKey = followerPairKey
         return followerRepository.save(follower)
     }
+
+    @Transactional
+    fun unfollow(followingUserId: Int, followedUserId: Int) {
+        val followerPairKey = FollowerPairKey()
+        followerPairKey.followingUserId = followingUserId
+        followerPairKey.followedUserId = followedUserId
+        followerRepository.deleteById(followerPairKey)
+    }
 }
