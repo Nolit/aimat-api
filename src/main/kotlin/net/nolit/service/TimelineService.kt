@@ -42,4 +42,13 @@ class TimelineService (
         timeline.type = typeRepository.findByIdOrNull(TimelineType.ACHIEVED)
         repository.save(timeline)
     }
+
+    @Transactional
+    fun addDeclaredTimeline(userId: Int, taskId: Int) {
+        val timeline = Timeline()
+        timeline.userId = userId
+        timeline.task = taskRepository.findByIdOrNull(taskId)
+        timeline.type = typeRepository.findByIdOrNull(TimelineType.DECLARED)
+        repository.save(timeline)
+    }
 }

@@ -8,4 +8,7 @@ import org.springframework.data.repository.query.Param
 interface TaskRepository : JpaRepository<Task, Int> {
     @Query("select * from task where due_date = :dueDate AND user_id = :userId", nativeQuery = true)
     fun findByUserIdAndDueDate(@Param("userId")userId: Int, @Param("dueDate") dueDate: String): List<Task>
+
+    @Query("select * from task where due_date = :dueDate", nativeQuery = true)
+    fun getByDueDate(@Param("dueDate") dueDate: String): List<Task>
 }

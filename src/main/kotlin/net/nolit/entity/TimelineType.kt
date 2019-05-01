@@ -8,6 +8,7 @@ import javax.persistence.*
 @Table(name = "timeline_types")
 class TimelineType {
     companion object {
+        const val DECLARED = 1
         const val ACHIEVED = 2
     }
     @Id
