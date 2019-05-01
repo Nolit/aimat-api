@@ -4,7 +4,7 @@ import net.nolit.dredear.entity.Follower
 import net.nolit.dredear.entity.Timeline
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
-import net.nolit.service.TimelineService
+import net.nolit.dredear.service.TimelineService
 import net.nolit.dredear.controller.form.User as UserForm
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest

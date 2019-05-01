@@ -1,6 +1,6 @@
 package net.nolit.dredear.event
 
-import net.nolit.service.TimelineService
+import net.nolit.dredear.service.TimelineService
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 

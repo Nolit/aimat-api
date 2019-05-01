@@ -1,4 +1,4 @@
-package net.nolit.service
+package net.nolit.dredear.service
 
 import net.nolit.dredear.entity.Timeline
 import net.nolit.dredear.entity.TimelineType
