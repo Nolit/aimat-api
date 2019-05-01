@@ -16,6 +16,9 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.util.*
+import org.springframework.security.web.AuthenticationEntryPoint
+
+
 
 
 @Configuration
@@ -34,6 +37,9 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
                 .antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint())
 
         http.formLogin()
             .successHandler { _, res, _ ->
@@ -77,5 +83,9 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
+    }
+
+    fun authenticationEntryPoint(): AuthenticationEntryPoint {
+        return SimpleAuthenticationEntryPoint()
     }
 }
