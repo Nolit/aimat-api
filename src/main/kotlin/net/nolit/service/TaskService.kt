@@ -6,6 +6,7 @@ import net.nolit.dredear.entity.User
 import net.nolit.dredear.event.TaskAchieved
 import net.nolit.dredear.exception.NotFoundException
 import net.nolit.dredear.repository.TaskRepository
+import net.nolit.dredear.repository.TimelineRepository
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,6 +15,7 @@ import java.time.LocalDate
 @Service
 class TaskService (
     private val repository: TaskRepository,
+    private val timelineRepository: TimelineRepository,
     private val publisher: ApplicationEventPublisher
 ){
 
@@ -43,6 +45,7 @@ class TaskService (
     @Transactional
     fun delete(id: Int) {
         repository.deleteById(id)
+        timelineRepository.deleteByTaskId(id)
     }
 
     @Transactional(readOnly = true)
