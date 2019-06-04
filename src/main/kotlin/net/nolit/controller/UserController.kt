@@ -36,7 +36,7 @@ class UserController (
         return service.getFollowCandidatesBy(id)
     }
 
-    @GetMapping("/sign-in-user")
+    @GetMapping("/me")
     fun findSignInUser(@ModelAttribute user: User?): User? {
         user?.timelines = listOf()
         user?.tasks = listOf()
