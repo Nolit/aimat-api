@@ -26,12 +26,12 @@ class UserController (
         return service.create(request.getParameter("email"), request.getParameter("password"), request.getParameter("userName"))
     }
 
-    @GetMapping("/{id}/followed-users")
+    @GetMapping("/{id}/followees")
     fun getFriends(@PathVariable id: Int): List<User> {
         return service.getFollowedUserList(id)
     }
 
-    @GetMapping("/{id}/friend-candidates")
+    @GetMapping("/{id}/followees-candidates")
     fun getFriendCandidates(@PathVariable id: Int): List<User> {
         return service.getFollowCandidatesBy(id)
     }
@@ -43,12 +43,12 @@ class UserController (
         return user
     }
 
-    @PutMapping("/{followingUserId}/followed-users/{followedUserId}")
+    @PutMapping("/{followingUserId}/followees/{followedUserId}")
     fun follow(@PathVariable followingUserId: Int, @PathVariable followedUserId: Int): Follower {
         return service.follow(followingUserId, followedUserId)
     }
 
-    @DeleteMapping("/{followingUserId}/followed-users/{followedUserId}")
+    @DeleteMapping("/{followingUserId}/followees/{followedUserId}")
     fun unfollow(@PathVariable followingUserId: Int, @PathVariable followedUserId: Int) {
         service.unfollow(followingUserId, followedUserId)
     }
