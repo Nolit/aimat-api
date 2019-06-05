@@ -1,7 +1,6 @@
 package net.nolit.dredear.controller
 
 import net.nolit.dredear.entity.Follower
-import net.nolit.dredear.entity.Timeline
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
 import net.nolit.dredear.service.TimelineService
@@ -27,17 +26,17 @@ class UserController (
     }
 
     @GetMapping("/{id}/followees")
-    fun getFriends(@PathVariable id: Int): List<User> {
-        return service.getFollowedUserList(id)
+    fun getFollowees(@PathVariable id: Int): List<User> {
+        return service.getFollowees(id)
     }
 
     @GetMapping("/{id}/followees-candidates")
-    fun getFriendCandidates(@PathVariable id: Int): List<User> {
-        return service.getFollowCandidatesBy(id)
+    fun getFolloweeCandidates(@PathVariable id: Int): List<User> {
+        return service.getFolloweeCandidatesBy(id)
     }
 
     @GetMapping("/me")
-    fun findSignInUser(@ModelAttribute user: User?): User? {
+    fun findMe(@ModelAttribute user: User?): User? {
         user?.timelines = listOf()
         user?.tasks = listOf()
         return user

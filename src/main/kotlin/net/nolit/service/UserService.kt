@@ -8,7 +8,6 @@ import net.nolit.dredear.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import kotlin.streams.toList
 
 @Service
 class UserService(
@@ -36,33 +35,33 @@ class UserService(
     }
 
     @Transactional
-    fun getFollowedUserList(followingUserId: Int): List<User> {
-        return repository.getFollowedUser(followingUserId)
+    fun getFollowees(userId: Int): List<User> {
+        return repository.getFollowedUser(userId)
     }
 
     @Transactional
-    fun getFollowCandidatesBy(followingUserId: Int): List<User> {
-        val followedUserList =  getFollowedUserList(followingUserId)
+    fun getFolloweeCandidatesBy(userId: Int): List<User> {
+        val followedUserList =  getFollowees(userId)
         val cannotCandidateIdList = followedUserList.stream().map { user -> user.id }.toArray().toMutableList()
-        cannotCandidateIdList.add(followingUserId)
+        cannotCandidateIdList.add(userId)
         return repository.getWithoutIdList(cannotCandidateIdList.toList() as List<Int>)
     }
 
     @Transactional
-    fun follow(followingUserId: Int, followedUserId: Int): Follower {
+    fun follow(followerId: Int, followeeId: Int): Follower {
         val follower = Follower()
         val followerPairKey = FollowerPairKey()
-        followerPairKey.followingUserId = followingUserId
-        followerPairKey.followedUserId = followedUserId
+        followerPairKey.followingUserId = followerId
+        followerPairKey.followedUserId = followeeId
         follower.followerPairKey = followerPairKey
         return followerRepository.save(follower)
     }
 
     @Transactional
-    fun unfollow(followingUserId: Int, followedUserId: Int) {
+    fun unfollow(followerId: Int, followeeId: Int) {
         val followerPairKey = FollowerPairKey()
-        followerPairKey.followingUserId = followingUserId
-        followerPairKey.followedUserId = followedUserId
+        followerPairKey.followingUserId = followerId
+        followerPairKey.followedUserId = followeeId
         followerRepository.deleteById(followerPairKey)
     }
 }
