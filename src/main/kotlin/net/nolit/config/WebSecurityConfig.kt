@@ -32,6 +32,7 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
         http.csrf().disable()
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/users/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.GET, "/context/time").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/login").permitAll()

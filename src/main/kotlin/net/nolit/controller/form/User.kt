@@ -1,6 +1,9 @@
 package net.nolit.dredear.controller.form
 
-class User {
+import java.io.Serializable
+
+class User: Serializable{
     var email: String = ""
     var password: String = ""
+    var userName: String = ""
 }

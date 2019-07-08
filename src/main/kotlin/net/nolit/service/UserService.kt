@@ -25,6 +25,17 @@ class UserService(
     }
 
     @Transactional
+    fun update(id: Int, email: String, name: String, password: String = ""): User {
+        val user = repository.getOne(id)
+        user.email = email
+        user.userName = name
+        if (password !== "") {
+            user.pass = passwordEncoder.encode(password)
+        }
+        return repository.save(user)
+    }
+
+    @Transactional
     fun getAll(): List<User> {
         return repository.findAll()
     }
