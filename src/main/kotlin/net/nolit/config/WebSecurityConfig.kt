@@ -77,7 +77,7 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = Arrays.asList("http://dredear.nolit.net", "http://localhost:3000")
+        configuration.allowedOrigins = Arrays.asList("http://shimasho.nolit.net", "http://localhost:3000")
         configuration.allowedMethods = Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE")
         configuration.allowedHeaders = Arrays.asList("*")
         configuration.allowCredentials = true
