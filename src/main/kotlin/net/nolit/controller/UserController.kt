@@ -1,10 +1,14 @@
 package net.nolit.dredear.controller
 
+import net.nolit.controller.form.UserCreateRequest
 import net.nolit.dredear.entity.Follower
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
 import net.nolit.dredear.service.TimelineService
+import net.nolit.exception.ValidationErrorException
 import org.springframework.http.MediaType
+import org.springframework.validation.Errors
+import org.springframework.validation.annotation.Validated
 import net.nolit.dredear.controller.form.User as UserForm
 import org.springframework.web.bind.annotation.*
 import java.io.Serializable
@@ -32,8 +36,11 @@ class UserController (
     }
 
     @PostMapping
-    fun create(request: HttpServletRequest): User {
-        return service.create(request.getParameter("email"), request.getParameter("password"), request.getParameter("userName"))
+    fun create(@Validated request: UserCreateRequest, errors: Errors): User {
+        if (errors.hasErrors()) {
+            throw ValidationErrorException(errors)
+        }
+        return service.create(request.email, request.password, request.userName)
     }
 
     @GetMapping("/{id}/followees")
