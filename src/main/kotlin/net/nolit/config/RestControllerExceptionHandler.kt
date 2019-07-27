@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
+data class Error(val field: String, val message: String?)
+
 @RestControllerAdvice
 class RestControllerExceptionHandler {
     @ExceptionHandler(ValidationErrorException::class)
@@ -17,6 +19,7 @@ class RestControllerExceptionHandler {
         val headers = HttpHeaders()
         val status = HttpStatus.BAD_REQUEST
         val validationException = ex as ValidationErrorException
-        return ResponseEntity(validationException.errors.allErrors, headers, status)
+        val errors = validationException.errors.fieldErrors.map { error -> Error(field = error.field, message = error.defaultMessage) }
+        return ResponseEntity(mutableMapOf("errors" to errors), headers, status)
     }
 }
