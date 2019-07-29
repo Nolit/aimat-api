@@ -1,6 +1,7 @@
 package net.nolit.dredear.controller
 
 import net.nolit.controller.form.UserCreateRequest
+import net.nolit.controller.form.UserUpdateRequest
 import net.nolit.dredear.entity.Follower
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
@@ -31,8 +32,8 @@ class UserController (
     }
 
     @PatchMapping("/{id}")
-    fun update(@PathVariable id: Int, @RequestBody data: UserForm): User {
-        return service.update(id, data.email, data.userName, data.password)
+    fun update(@PathVariable id: Int, @Validated request: UserUpdateRequest): User {
+        return service.update(id, request.email, request.userName, request.password)
     }
 
     @PostMapping
