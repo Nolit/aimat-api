@@ -1,10 +1,11 @@
 package net.nolit.dredear.controller
 
+import net.nolit.controller.form.TaskCreateRequest
 import net.nolit.dredear.entity.Task
 import net.nolit.dredear.entity.Type
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.TaskService
-import net.nolit.dredear.controller.form.Task as TaskForm
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
@@ -24,8 +25,8 @@ class TaskController (
     }
 
     @PostMapping
-    fun create(@ModelAttribute user: User, @ModelAttribute taskForm: TaskForm): Task {
-        return service.create(taskForm.title, taskForm.amount, LocalDate.parse(taskForm.dueDate), user, Type.valueOf(taskForm.type))
+    fun create(@ModelAttribute user: User, @Validated @ModelAttribute request: TaskCreateRequest): Task {
+        return service.create(request.title, request.amount, LocalDate.parse(request.dueDate), user, Type.valueOf(request.type))
     }
 
     @DeleteMapping("/{id}")
