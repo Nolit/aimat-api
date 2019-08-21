@@ -6,13 +6,15 @@ import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
 
 class UserCreateRequest {
-    @NotBlank
-    @Email
+    @NotBlank(message = "メールアドレスは必須項目です")
+    @Email(message = "メールアドレスの形式で入力してください")
     lateinit var email: String
-    @NotBlank
-    @Min(value = 8)
+
+    @NotBlank(message = "パスワードは必須項目です")
+    @Min(value = 8, message = "パスワードは最低8文字です")
     lateinit var password: String
-    @NotBlank
-    @Max(value = 16)
+
+    @NotBlank(message = "名前は必須項目です")
+    @Max(value = 16, message = "名前は16文字以内で入力してください")
     lateinit var userName: String
 }

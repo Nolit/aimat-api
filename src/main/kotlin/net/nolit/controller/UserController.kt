@@ -2,6 +2,7 @@ package net.nolit.dredear.controller
 
 import net.nolit.controller.form.UserCreateRequest
 import net.nolit.controller.form.UserUpdateRequest
+import net.nolit.controller.validator.UserCreateValidator
 import net.nolit.dredear.entity.Follower
 import net.nolit.dredear.entity.User
 import net.nolit.dredear.service.UserService
@@ -10,6 +11,7 @@ import net.nolit.exception.ValidationErrorException
 import org.springframework.http.MediaType
 import org.springframework.validation.Errors
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.WebDataBinder
 import net.nolit.dredear.controller.form.User as UserForm
 import org.springframework.web.bind.annotation.*
 import java.io.Serializable
@@ -19,7 +21,8 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/users", produces = [MediaType.APPLICATION_JSON_VALUE])
 class UserController (
         private val service: UserService,
-        private val timelineService: TimelineService
+        private val timelineService: TimelineService,
+        private val createValidator: UserCreateValidator
 ){
     @GetMapping
     fun getAll(): List<User> {
@@ -74,5 +77,10 @@ class UserController (
     @GetMapping("/{followingUserId}/timelines")
     fun getTimeline(@PathVariable followingUserId: Int): List<Any> {
         return timelineService.getTimelineEveryUser(followingUserId)
+    }
+
+    @InitBinder
+    fun validatorBinder(binder: WebDataBinder) {
+        binder.addValidators(createValidator)
     }
 }
