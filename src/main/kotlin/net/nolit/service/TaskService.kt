@@ -7,6 +7,8 @@ import net.nolit.dredear.event.TaskAchieved
 import net.nolit.dredear.exception.NotFoundException
 import net.nolit.dredear.repository.TaskRepository
 import net.nolit.dredear.repository.TimelineRepository
+import net.nolit.exception.DomainException
+import net.nolit.exception.ValidationErrorException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -44,6 +46,8 @@ class TaskService (
 
     @Transactional
     fun delete(id: Int) {
+        val task = repository.findById(id).get()
+        if (! task.isDeletable) throw DomainException("タスクの削除は前日までしてください")
         repository.deleteById(id)
         timelineRepository.deleteByTaskId(id)
     }

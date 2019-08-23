@@ -1,5 +1,6 @@
 package net.nolit.config
 
+import net.nolit.exception.DomainException
 import net.nolit.exception.ValidationErrorException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -21,5 +22,12 @@ class RestControllerExceptionHandler {
         val validationException = ex as ValidationErrorException
         val errors = validationException.errors.fieldErrors.map { error -> Error(field = error.field, message = error.defaultMessage) }
         return ResponseEntity(mutableMapOf("errors" to errors), headers, status)
+    }
+
+    @ExceptionHandler(DomainException::class)
+    fun handleException(ex: Exception, request: WebRequest): ResponseEntity<Any> {
+        val headers = HttpHeaders()
+        val status = HttpStatus.BAD_REQUEST
+        return ResponseEntity(mutableMapOf("error" to ex.message), headers, status)
     }
 }
